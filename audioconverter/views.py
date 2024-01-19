@@ -17,17 +17,14 @@ def convert_upload(request):
             audio_format = request.POST.get('conversion_format', 'mp3')  # Default to 'mp3' if not provided
             print('Received file:', audio_file.name, 'Format:', audio_format)
 
-            # Salvăm fișierul în folder-ul media
             file_path = os.path.join(settings.MEDIA_ROOT, 'input', audio_file.name)
             with open(file_path, 'wb') as destination:
                 for chunk in audio_file.chunks():
                     destination.write(chunk)
 
-            # Convertim audio
             try:
                 converted_file = convert_audio(file_path, audio_format)
 
-                # Returnăm fișierul convertit
                 return JsonResponse({'success': True, 'converted_file': converted_file})
             except ValueError as ve:
                 return JsonResponse({'success': False, 'error': str(ve)})
