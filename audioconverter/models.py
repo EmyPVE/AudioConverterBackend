@@ -33,10 +33,10 @@ class Subscription(models.Model):
 
 
 class User(models.Model):
-    username = models.CharField(max_length=255)
+    username = models.CharField(max_length=255, unique=True)
     email = models.CharField(max_length=255)
     password_hash = models.CharField(max_length=255)
-    created_at = models.DateTimeField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True) 
     subscription = models.ForeignKey(Subscription, models.DO_NOTHING, blank=True, null=True)
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)

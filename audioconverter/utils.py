@@ -2,6 +2,7 @@ import os
 from django.conf import settings
 import subprocess
 
+
 def convert_audio(input_file_path, output_format):
     valid_formats = ['mp3', 'wav', 'aiff', 'wma']
     if output_format not in valid_formats:

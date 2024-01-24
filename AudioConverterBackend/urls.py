@@ -19,10 +19,22 @@ from django.urls import path
 from audioconverter.views import convert_upload
 from django.conf import settings
 from django.conf.urls.static import static
+import audioconverter.views as views
+
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('convert_upload/', convert_upload, name='convert_upload'),
+    path('api/subscriptions/', views.SubscriptionList.as_view(), name='subscription-list'),
+    path('api/users/', views.UserList.as_view(), name='user-list'),
+    path('api/login/', views.login_view, name='login'),
+    path('api/user/', views.user_detail, name='user-detail'),
+    path('api/change-password/', views.change_password, name='change-password'),
+    path('api/update_subscription/', views.update_subscription, name='update-subscription'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
